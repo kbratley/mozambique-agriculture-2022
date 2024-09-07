@@ -13,8 +13,8 @@ The mapping was carried out using Digital Earth Africa’s (DEA) crop-type mappi
 ### 2.1 Data Preparation
 Five Sentinel-2 geomedian composites were used to reduce spatial noise and emphasize dominant spectral features:
 
-1 annual composite (2022)
-4 quarterly composites (Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec)
+- 1 annual composite (2022)
+- 4 quarterly composites (Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec)
 
 Additionally, three Median Absolute Deviation (MAD) layers were calculated for each composite:
 - **Euclidean MAD (EMAD)**: Measures the distance of each pixel from the median in multi-dimensional space.
@@ -27,8 +27,7 @@ We also calculated six spectral indices, such as NDVI, LAI, and Tasseled Cap tra
 We used a modified version of the [DEA crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type) to map agricultural areas in Mozambique by employing a Random Forest machine learning classifier. Training data was collected using Sentinel-2 imagery, with 34,604 sites across Mozambique labeled as Agriculture or Other. After iterative training and refinement, we produced a final map of 2022 agricultural areas.
 
 ### 2.3 Accuracy Assessment
-A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. Trained interpreters determine reference land cover labels for each unit in the sample by examining time series of Sentinel-2 and PlanetScope (Planet Team, 2017) data (2019-2022) using the AREA2 toolbox (available from github.com/bullocke/area2). ![image](https://github.com/user-attachments/assets/db209efd-79de-44f2-88ed-efac0707e763)
-The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). The total mapped area of agriculture was estimated at **90,680.57 km²** ± 8,127.49 km².
+A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. Trained interpreters determine reference land cover labels for each unit in the sample by examining time series of Sentinel-2 and PlanetScope (Planet Team, 2017) data (2019-2022) using the [AREA2 toolbox](github.com/bullocke/area2). 
 
 ## Results
 
@@ -39,14 +38,14 @@ The training dataset contains 34,604 sites, approximately 30% of which were labe
 Active agriculture covered **12%** of Mozambique’s land in 2022, or **90,680.57 km²**. Most agricultural areas were located in the provinces of Nampula, Zambezia, and Tete, which also have the highest population densities. This suggests a correlation between population distribution and agricultural activity in the country.
 
 ### 3.3 Accuracy Assessment and Area Estimation
-The accuracy of the agricultural map was evaluated using the reference dataset. The overall accuracy was 96.9%, with area estimates and their 95% confidence intervals for both Agriculture and Other land cover classes provided below:
+The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). The total mapped area of agriculture was estimated at **90,680.57 km²** ± 8,127.49 km². 
 
 | Class        | Area Estimate (km²) | 95% Confidence Interval (km²) | User Accuracy | Producer Accuracy |
 |--------------|---------------------|------------------------------|---------------|-------------------|
 | Agriculture  | 90,680.57            | 8,127.49                     | 89.32%        | 83.02%            |
 | Other        | 696,309.07           | 8,127.49                     | 97.81%        | 98.71%            |
 
-Overall, the high accuracy values indicate that the final map is reliable for land use planning and agricultural monitoring.
+The accuracy and area estimate results provide strong evidence for a highly accurate and reliable land cover map, as well as precise area estimates for all classes.
 
 ## Citation
 If you use this dataset, please cite as follows:
