@@ -1,4 +1,4 @@
-# Mozambique Active Agricultural Land Mapping (2022)
+# Mozambique Active Agricultural Extent Mapping (2022)
 
 ## Overview
 This project maps active agricultural land extent in Mozambique for 2022 using Sentinel-2 Level-2A Surface Reflectance imagery. The analysis was conducted using a combination of the [DEA Sandbox](https://www.digitalearthafrica.org/) and [Google Earth Engine (GEE)](https://earthengine.google.com/) platforms. This repository provides an overview of the methodology, results, and access to the data used in this study.
