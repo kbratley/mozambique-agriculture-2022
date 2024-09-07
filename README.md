@@ -1,12 +1,10 @@
 # Mozambique Active Agricultural Land Mapping (2022)
 
 ## Overview
-This project maps active agricultural land in Mozambique for the year 2022 using Sentinel-2 Level-2A Surface Reflectance imagery. The analysis was conducted using a combination of the DEA Sandbox and Google Earth Engine (GEE) platforms. This repository provides an overview of the methodology, results, and access to the data used in this study.
+This project maps active agricultural land extent in Mozambique for 2022 using Sentinel-2 Level-2A Surface Reflectance imagery. The analysis was conducted using a combination of the [DEA Sandbox](https://www.digitalearthafrica.org/) and [Google Earth Engine (GEE)](https://earthengine.google.com/) platforms. This repository provides an overview of the methodology, results, and access to the data used in this study.
 
 ## Data Access
-The data for Mozambique’s active agriculture map is available on Google Earth Engine (GEE). You can access the data by following these steps:
-
-1. Go to [Google Earth Engine](https://earthengine.google.com/).
+The final [Mozambique’s Active Agriculture Extent Map (2022)](https://code.earthengine.google.com/aa4700f748e76095ae5fa4e15fa19b5d) is available on Google Earth Engine (GEE).
 
 ## Methods
 
@@ -29,7 +27,8 @@ We also calculated six spectral indices, such as NDVI, LAI, and Tasseled Cap tra
 We used a modified version of the [DEA crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type) to map agricultural areas in Mozambique by employing a Random Forest machine learning classifier. Training data was collected using Sentinel-2 imagery, with 34,604 sites across Mozambique labeled as Agriculture or Other. After iterative training and refinement, we produced a final map of 2022 agricultural areas.
 
 ### 2.3 Accuracy Assessment
-A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). The total mapped area of agriculture was estimated at **90,680.57 km²** ± 8,127.49 km².
+A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. Trained interpreters determine reference land cover labels for each unit in the sample by examining time series of Sentinel-2 and PlanetScope (Planet Team, 2017) data (2019-2022) using the AREA2 toolbox (available from github.com/bullocke/area2). ![image](https://github.com/user-attachments/assets/db209efd-79de-44f2-88ed-efac0707e763)
+The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). The total mapped area of agriculture was estimated at **90,680.57 km²** ± 8,127.49 km².
 
 ## Results
 
