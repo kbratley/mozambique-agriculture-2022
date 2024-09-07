@@ -8,16 +8,15 @@ The data for Mozambique’s active agriculture map is available on Google Earth 
 
 1. Go to [Google Earth Engine](https://earthengine.google.com/).
 
-3. If you are unfamiliar with GEE, you can follow this [tutorial on how to use GEE](https://developers.google.com/earth-engine/tutorials) for more guidance.
-
 ## Methods
 
-The mapping work for Mozambique’s active agricultural land in 2022 was performed using the [Digital Earth Africa (DEA) crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type). This open-source workflow, which is publicly available, utilizes Sentinel-2 geomedian composites and machine learning techniques to map cropland. For this analysis, the DEA crop-type workflow was adapted and applied within the DEA Sandbox and Google Earth Engine platforms.
+The mapping was carried out using Digital Earth Africa’s (DEA) crop-type mapping workflow, which combines Sentinel-2 geomedian composites with machine learning techniques. The workflow was adapted and applied on the DEA Sandbox and GEE platforms.
 
 ### 2.1 Data Preparation
-The mapping process uses publicly available Sentinel-2 geomedian composites from Digital Earth Africa (DEA). These geomedian composites help reduce spatial noise and highlight dominant spectral characteristics. Five composites were used:
-- 1 annual composite (for 2022)
-- 4 quarterly composites (Jan-Mar, Apr-Jun, Jul-Sep, and Oct-Dec)
+Five Sentinel-2 geomedian composites were used to reduce spatial noise and emphasize dominant spectral features:
+
+1 annual composite (2022)
+4 quarterly composites (Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec)
 
 Additionally, three Median Absolute Deviation (MAD) layers were calculated for each composite:
 - **Euclidean MAD (EMAD)**: Measures the distance of each pixel from the median in multi-dimensional space.
@@ -27,7 +26,7 @@ Additionally, three Median Absolute Deviation (MAD) layers were calculated for e
 We also calculated six spectral indices, such as NDVI, LAI, and Tasseled Cap transformations, to better monitor vegetation and differentiate land-cover types.
 
 ### 2.2 Land Cover Mapping
-We used the [DEA crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type) to map agricultural areas in Mozambique. This workflow employs a Random Forest machine learning classifier to map cropland. Training data was collected using Sentinel-2 imagery, with 34,604 sites across Mozambique labeled as Agriculture or Other. After iterative training and refinement, the classifier produced the final map of agricultural areas.
+We used a modified version of the [DEA crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type) to map agricultural areas in Mozambique by employing a Random Forest machine learning classifier. Training data was collected using Sentinel-2 imagery, with 34,604 sites across Mozambique labeled as Agriculture or Other. After iterative training and refinement, we produced a final map of 2022 agricultural areas.
 
 ### 2.3 Accuracy Assessment
 A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). The total mapped area of agriculture was estimated at **90,680.57 km²** ± 8,127.49 km².
@@ -50,9 +49,6 @@ The accuracy of the agricultural map was evaluated using the reference dataset. 
 
 Overall, the high accuracy values indicate that the final map is reliable for land use planning and agricultural monitoring.
 
-## Figures
-(Insert figures here, such as the training site data, the map of active agriculture, and accuracy assessment figures.)
-
 ## Citation
-If you use this dataset or methodology, please cite as follows:
-
+If you use this dataset, please cite as follows:
+Bratley, K. (2022). Mozambique active agricultural land mapping. GitHub. (https://github.com/kbratley/mozambique-agriculture-2022)
