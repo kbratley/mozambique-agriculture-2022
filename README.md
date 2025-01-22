@@ -11,14 +11,16 @@ The final [Mozambique’s Active Agriculture Extent Map (2022)](https://code.ear
 ### Data Description
 The mapping was conducted using the Digital Earth Africa (DEA) [crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type), which leverages Sentinel-2 geomedian composites and machine learning techniques. The workflow was adapted for the DEA Sandbox and GEE platforms.
 
-#### Key Data Inputs:
+**Key Data Inputs:**
 **1. Sentinel-2 Geomedian Composites (from DEA):**
    - Annual Composite for 2022.
    - Quarterly Composites: Jan-Mar, Apr-Jun, Jul-Sep, and Oct-Dec.
+
 **2. Median Absolute Deviation (MAD) Layers:**
    - Euclidean MAD (EMAD): Highlights pixel variability in multi-dimensional space.
    - Spectral MAD (SMAD): Captures spectral variability.
    - Bray-Curtis MAD (BCMAD): Captures spatial arrangement and heterogeneity.
+
 **3. Spectral Indices:** NDVI, LAI, and Tasseled Cap transformations were included to improve vegetation monitoring and land-cover differentiation.
 
 ---
