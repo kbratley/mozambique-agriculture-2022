@@ -7,29 +7,106 @@ This project maps active agricultural land extent in Mozambique for 2022 using S
 The final [Mozambique’s Active Agriculture Extent Map (2022)](https://code.earthengine.google.com/aa4700f748e76095ae5fa4e15fa19b5d) is available on Google Earth Engine (GEE).
 
 ## Data Description
+The mapping was conducted using the Digital Earth Africa (DEA) [crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type), which leverages Sentinel-2 geomedian composites and machine learning techniques. The workflow was adapted for the DEA Sandbox and GEE platforms.
 
-The mapping of Mozambique's active agricultural land in 2022 was conducted using the Digital Earth Africa (DEA) crop-type mapping workflow, an open-source process that leverages Sentinel-2 geomedian composites and machine learning techniques. This workflow was adapted for use within the DEA Sandbox and Google Earth Engine platforms.
+###Key Data Inputs:
+**1. Sentinel-2 Geomedian Composites (from DEA):**
+   - Annual Composite for 2022.
+   - Quarterly Composites: Jan-Mar, Apr-Jun, Jul-Sep, and Oct-Dec.
+**2. Median Absolute Deviation (MAD) Layers:**
+   - Euclidean MAD (EMAD): Highlights pixel variability in multi-dimensional space.
+   - Spectral MAD (SMAD): Captures spectral variability.
+   - Bray-Curtis MAD (BCMAD): Captures spatial arrangement and heterogeneity.
+**3. Spectral Indices:** NDVI, LAI, and Tasseled Cap transformations were included to improve vegetation monitoring and land-cover differentiation.
 
-### Data Preparation
-The analysis used publicly available Sentinel-2 geomedian composites from Digital Earth Africa. These composites, which reduce spatial noise and highlight dominant spectral characteristics, included:
+## Methodology Overview
 
- - 1 annual composite for 2022
- - 4 quarterly composites: Jan-Mar, Apr-Jun, Jul-Sep, and Oct-Dec
- - Additionally, three Median Absolute Deviation (MAD) layers were calculated for each composite to capture variability:
+### Training Data Collection (GEE)
+- Training datasets were prepared using Google Earth Engine, with individual JavaScript scripts for each Mozambican province.
+- These datasets were labeled with two classes: **Agriculture** and **Other**, based on 34,604 sites across the country.
+- The `merge_trainingData` script combined provincial datasets into a single **national training dataset** for model training.
 
- - Euclidean MAD (EMAD): Measures the distance of each pixel from the median in multi-dimensional space.
- - Spectral MAD (SMAD): Captures spectral variability.
- - Bray-Curtis MAD (BCMAD): Measures spatial arrangement and heterogeneity.
-Six spectral indices, including NDVI, LAI, and Tasseled Cap transformations, were calculated to improve vegetation monitoring and land-cover differentiation.
+### Land Cover Classification (DEA)
+- Python scripts accessed DEA datasets, processed imagery, and applied a **Random Forest classifier**.
+- Classification was performed using the collected training data to map active agriculture for 2022.
+
+### Accuracy Assessment and Area Estimation (GEE)
+- The **AREA2 toolbox** in GEE was used to validate the map and estimate agricultural areas.
+- Accuracy metrics, including **User’s and Producer’s accuracy**, were computed for the Agriculture class.
+
+---
+
+## Scripts Overview
+
+### **1. Training Data Scripts**
+- **Folder**: `1_training_data_GEE`
+- **Purpose**: Collect training data for each province using GEE.
+- **Scripts**:
+  - Individual scripts for each Mozambican province (e.g., `Zambezia_Train`, `Maputo_Train`).
+  - **`merge_trainingData`**: Combines provincial datasets into a national training dataset.
+- **Outputs**: Labeled training data exported from GEE.
+
+### **2. Classification Scripts**
+- **Folder**: `2_land_cover_mapping_DEA`
+- **Purpose**: Perform image classification using DEA datasets and Python.
+- **Scripts**:
+  - Sequential Python scripts within the `Moz_cropmask` folder:
+    1. Extract and inspect training data.
+    2. Train and evaluate a Random Forest model.
+    3. Predict agricultural land cover using Sentinel-2 data.
+    4. Combine image tiles into a seamless classification map.
+    5. Compute zonal statistics for agricultural area estimation.
+- **Outputs**: A classified map of Mozambique’s active agriculture in 2022 (GeoTIFF format) and zonal statistics summarizing agricultural area by region.
+
+### **3. Accuracy Assessment Scripts**
+- **Folder**: `3_accuracy_assessment_GEE`
+- **Purpose**: Validate classification results and estimate areas using the [AREA2 toolbox](https://github.com/bullocke/area2) in GEE.
+- **Scripts**:
+  - Sequential scripts to:
+    1. Generate random sampling points for accuracy assessment.
+    2. Extract time-series data from Sentinel-2 imagery for sampled points.
+    3. Assign reference labels to sampled points.
+    4. Export labeled points for accuracy analysis.
+    5. Combine all labeled points into a single feature collection.
+    6. Perform stratified accuracy assessment and compute area estimates.
+- **Outputs**: Accuracy report with metrics (e.g., overall accuracy, User’s and Producer’s accuracy) and area estimates for Mozambique’s agricultural land.
+
+---
+
+## Results Summary
 
 ### Land Cover Mapping
-A modified version of The [DEA crop-type mapping workflow](https://github.com/digitalearthafrica/crop-type) was employed to map agricultural areas using a Random Forest classifier trained on data from 34,604 sites across Mozambique, with about 30% labeled as Agriculture and 70% as Other (non-agriculture). These sites were evenly distributed across provinces, with slightly lower densities in larger provinces and areas with uniform land cover.
-
-The classifier produced a final map of Mozambique’s active agriculture, which showed that in 2022, 12% of the country’s land—approximately 90,680.57 km² ± 8,127.49 km²—was under cultivation. The majority of agricultural activity was concentrated in the provinces of Nampula, Zambezia, and Tete, correlating with higher population densities.
+- Approximately **12% of Mozambique’s land (90,680.57 km² ± 8,127.49 km²)** was under cultivation in 2022.
+- The provinces with the highest agricultural activity are **Nampula**, **Zambezia**, and **Tete**, correlating with high population densities.
 
 ### Accuracy Assessment
-A total of 1,200 reference sites were selected using simple random sampling to assess the accuracy of the map. Trained interpreters determine reference land cover labels for each unit in the sample by examining time series of Sentinel-2 and PlanetScope (Planet Team, 2017) data (2019-2022) using the [AREA2 toolbox](github.com/bullocke/area2). The final map achieved an overall accuracy of 96.9%, with specific accuracies for the Agriculture class at 89.32% (User) and 83.02% (Producer). 
+- **Overall Accuracy**: 96.9%.
+- **Agriculture Class Accuracy**:
+  - **User’s Accuracy**: 89.32%.
+  - **Producer’s Accuracy**: 83.02%.
 
-## Citation
-If you use this dataset, please cite as follows:
-Bratley, K. (2022). Mozambique active agricultural land mapping. GitHub. (https://github.com/kbratley/mozambique-agriculture-2022)
+---
+
+## How to Use This Repository
+
+### Training Data Collection
+1. Run the GEE JavaScript scripts in `1_training_data_GEE` to collect provincial training data.
+2. Use the `merge_trainingData` script to combine datasets into a national dataset.
+
+### Land Cover Classification
+1. Use Python scripts in `2_land_cover_mapping_DEA` to classify Sentinel-2 imagery.
+2. Ensure access to DEA datasets and install the required Python libraries.
+
+### Accuracy Assessment
+1. Run the GEE scripts in `3_accuracy_assessment_GEE` to validate the classified map output from the `2_land_cover_mapping_DEA` step and estimate areas using the AREA2 toolbox.
+
+---
+
+## Requirements
+
+### Google Earth Engine (GEE)
+- Required for Steps 1 and 3.
+- Ensure you have a GEE account and access to the AREA2 toolbox.
+
+### Python Environment
+- Required for Step 2.
