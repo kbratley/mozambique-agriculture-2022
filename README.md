@@ -19,6 +19,8 @@ The mapping was conducted using the Digital Earth Africa (DEA) [crop-type mappin
    - Bray-Curtis MAD (BCMAD): Captures spatial arrangement and heterogeneity.
 **3. Spectral Indices:** NDVI, LAI, and Tasseled Cap transformations were included to improve vegetation monitoring and land-cover differentiation.
 
+---
+
 ## Methodology Overview
 
 ### Training Data Collection (GEE)
